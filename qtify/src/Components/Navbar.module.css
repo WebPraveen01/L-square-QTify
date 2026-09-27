@@ -1,0 +1,24 @@
+.navbar {
+  background-color: var(--color-primary);
+  height: 74px;
+  width: 100vw;
+  padding: 0px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.logo {
+  width: 67px;
+  height: 35px;
+  object-fit: contain;
+  display: block;
+}

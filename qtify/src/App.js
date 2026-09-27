@@ -1,23 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, useParams } from 'react-router-dom';
+import Hero from './Components/Hero';
+import Navbar from './Components/Navbar';
+import TopAlbums from './Components/TopAlbums';
+import NewAlbums from './Components/NewAlbums';
+import SongsSection from './Components/SongsSection';
+import Footer from './Components/Footer';
+
+function AlbumDetailsPage() {
+  const { slug } = useParams();
+
+  return (
+    <div style={{ backgroundColor: '#121212', color: '#fff', minHeight: '60vh', padding: '40px 24px' }}>
+      <h2>Album Details</h2>
+      <p>Album slug: {slug}</p>
+    </div>
+  );
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <TopAlbums />
+            <NewAlbums />
+            <SongsSection />
+            <Footer />
+          </>
+        } />
+        <Route path="/album/:slug" element={
+          <>
+            <AlbumDetailsPage />
+            <Footer />
+          </>
+        } />
+      </Routes>
     </div>
   );
 }
