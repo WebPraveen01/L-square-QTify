@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Card as MuiCard,
-  CardMedia,
-  CardContent,
-  Typography,
-  Chip,
-} from "@mui/material";
+import {Card as MuiCard, CardMedia, CardContent,Typography,Chip,} from "@mui/material";
 
 const AlbumCard = ({ image, title, follows = 0, description, onClick }) => {
   return (

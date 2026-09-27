@@ -71,12 +71,16 @@ test('renders Top and New Albums and expands them with Show All', async () => {
   expect(await screen.findByText('Top Album 1')).toBeInTheDocument();
   expect(await screen.findByText('New Album 1')).toBeInTheDocument();
 
+  expect(screen.getAllByRole('img', { name: /Top Album/i })).toHaveLength(5);
+  expect(screen.getAllByRole('img', { name: /New Album/i })).toHaveLength(5);
+
   const topShowAllButtons = screen.getAllByRole('button', { name: /show all/i });
   expect(topShowAllButtons.length).toBeGreaterThanOrEqual(2);
 
   await user.click(topShowAllButtons[0]);
 
   await waitFor(() => {
+    expect(screen.getAllByRole('img', { name: /Top Album/i })).toHaveLength(topAlbums.length);
     expect(screen.getByText('Top Album 7')).toBeInTheDocument();
   });
 
@@ -84,6 +88,7 @@ test('renders Top and New Albums and expands them with Show All', async () => {
   await user.click(newShowAllButton);
 
   await waitFor(() => {
+    expect(screen.getAllByRole('img', { name: /New Album/i })).toHaveLength(newAlbums.length);
     expect(screen.getByText('New Album 7')).toBeInTheDocument();
   });
 });
