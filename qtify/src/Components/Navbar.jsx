@@ -79,6 +79,7 @@ function Navbar() {
               width: "170px",
               color: "#34C94B",
               boxShadow: "none",
+              fontFamily: 'Poppins, sans-serif',
               '&:hover': {
                 backgroundColor: "#000000",
               },

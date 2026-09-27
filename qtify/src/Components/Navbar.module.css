@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 .logoLink {
@@ -21,4 +22,11 @@
   height: 35px;
   object-fit: contain;
   display: block;
+}
+
+.navbar button,
+.navbar input,
+.navbar textarea,
+.navbar select {
+  font-family: 'Poppins', sans-serif;
 }
