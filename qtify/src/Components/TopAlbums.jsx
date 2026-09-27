@@ -10,6 +10,7 @@ const API_URL = 'https://qtify-backend.labs.crio.do/albums/top';
 function TopAlbums() {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchTopAlbums = async () => {
@@ -32,19 +33,42 @@ function TopAlbums() {
     fetchTopAlbums();
   }, []);
 
+  const visibleAlbums = showAll ? albums : albums.slice(0, 5);
+
   if (loading) {
     return <div style={{ color: '#fff', padding: '24px' }}>Loading top albums...</div>;
   }
 
   return (
     <div style={{ backgroundColor: '#121212', padding: '24px 24px 40px' }}>
-      <h2 style={{ color: '#fff', margin: '0 0 20px' }}>Top Albums</h2>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <h2 style={{ color: '#fff', margin: 0, fontFamily: 'Poppins, sans-serif' }}>Top Albums</h2>
+
+        {albums.length > 5 && (
+          <button
+            type="button"
+            onClick={() => setShowAll((prev) => !prev)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#34C94B',
+              fontSize: '16px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              fontFamily: 'Poppins, sans-serif',
+              padding: 0,
+            }}
+          >
+            {showAll ? 'Show Less' : 'Show All'}
+          </button>
+        )}
+      </div>
 
       <div style={{ position: 'relative' }}>
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
-          slidesPerView={5}
+          slidesPerView={Math.min(5, visibleAlbums.length || 1)}
           navigation={{
             nextEl: '.custom-next-arrow',
             prevEl: '.custom-prev-arrow',
@@ -58,13 +82,12 @@ function TopAlbums() {
           }}
           style={{ padding: '0 20px' }}
         >
-          {albums.map((album) => (
+          {visibleAlbums.map((album) => (
             <SwiperSlide key={album.id}>
               <AlbumCard
                 image={album.image}
                 title={album.title}
                 follows={album.follows}
-                // description={album.description}
               />
             </SwiperSlide>
           ))}
