@@ -33,8 +33,6 @@ function TopAlbums() {
     fetchTopAlbums();
   }, []);
 
-  const visibleAlbums = showAll ? albums : albums.slice(0, 5);
-
   if (loading) {
     return <div style={{ color: '#fff', padding: '24px' }}>Loading top albums...</div>;
   }
@@ -65,97 +63,118 @@ function TopAlbums() {
       </div>
 
       <div style={{ position: 'relative' }}>
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={20}
-          slidesPerView={Math.min(5, visibleAlbums.length || 1)}
-          navigation={{
-            nextEl: '.custom-next-arrow',
-            prevEl: '.custom-prev-arrow',
-          }}
-          breakpoints={{
-            0: { slidesPerView: 1 },
-            480: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
-            1280: { slidesPerView: 5 },
-          }}
-          style={{ padding: '0 20px' }}
-        >
-          {visibleAlbums.map((album) => (
-            <SwiperSlide key={album.id}>
+        {!showAll ? (
+          <>
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={20}
+              navigation={{
+                nextEl: '.custom-next-arrow',
+                prevEl: '.custom-prev-arrow',
+              }}
+              breakpoints={{
+                0: { slidesPerView: 1 },
+                480: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+                1280: { slidesPerView: 5 },
+              }}
+              style={{ padding: '0 20px' }}
+            >
+              {albums.map((album) => (
+                <SwiperSlide key={album.id}>
+                  <AlbumCard
+                    image={album.image}
+                    title={album.title}
+                    follows={album.follows}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <button
+              className="custom-prev-arrow"
+              type="button"
+              aria-label="Previous"
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 2,
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: 'none',
+                backgroundColor: '#34C94B',
+                color: '#000',
+                fontFamily: 'Font Awesome 6 Pro',
+                fontWeight: 900,
+                fontStyle: 'solid',
+                fontSize: '32px',
+                lineHeight: '100%',
+                letterSpacing: '0px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: 'none',
+              }}
+            >
+              ‹
+            </button>
+
+            <button
+              className="custom-next-arrow"
+              type="button"
+              aria-label="Next"
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 2,
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: 'none',
+                backgroundColor: '#34C94B',
+                color: '#000',
+                fontFamily: 'Font Awesome 6 Pro',
+                fontWeight: 900,
+                fontStyle: 'solid',
+                fontSize: '32px',
+                lineHeight: '100%',
+                letterSpacing: '0px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: 'none',
+              }}
+            >
+              ›
+            </button>
+          </>
+        ) : (
+          <div
+            className="album-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+              gap: '20px',
+            }}
+          >
+            {albums.map((album) => (
               <AlbumCard
+                key={album.id}
                 image={album.image}
                 title={album.title}
                 follows={album.follows}
               />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        <button
-          className="custom-prev-arrow"
-          type="button"
-          aria-label="Previous"
-          style={{
-            position: 'absolute',
-            left: '0',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            border: 'none',
-            backgroundColor: '#34C94B',
-            color: '#000',
-            fontFamily: 'Font Awesome 6 Pro',
-            fontWeight: 900,
-            fontStyle: 'solid',
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '0px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: 'none',
-          }}
-        >
-          ‹
-        </button>
-
-        <button
-          className="custom-next-arrow"
-          type="button"
-          aria-label="Next"
-          style={{
-            position: 'absolute',
-            right: '0',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            border: 'none',
-            backgroundColor: '#34C94B',
-            color: '#000',
-            fontFamily: 'Font Awesome 6 Pro',
-            fontWeight: 900,
-            fontStyle: 'solid',
-            fontSize: '32px',
-            lineHeight: '100%',
-            letterSpacing: '0px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: 'none',
-          }}
-        >
-          ›
-        </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
