@@ -29,7 +29,6 @@ function NewAlbums() {
     fetchNewAlbums();
   }, []);
 
-  const visibleAlbums = showAll ? albums : albums.slice(0, 5);
 
   if (loading) {
     return <div style={{ color: '#fff', padding: '24px' }}>Loading new albums...</div>;
@@ -64,7 +63,7 @@ function NewAlbums() {
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
-          slidesPerView={Math.min(5, visibleAlbums.length || 1)}
+          //slidesPerView={Math.min(5, visibleAlbums.length || 1)}
           navigation={{
             nextEl: '.new-next-arrow',
             prevEl: '.new-prev-arrow',
@@ -78,7 +77,7 @@ function NewAlbums() {
           }}
           style={{ padding: '0 20px' }}
         >
-          {visibleAlbums.map((album) => (
+          {albums.map((album) => (
             <SwiperSlide key={album.id}>
               <AlbumCard image={album.image} title={album.title} follows={album.follows} />
             </SwiperSlide>

@@ -27,11 +27,7 @@ function SongsSection() {
         const genresData = await genresResponse.json();
 
         const parsedSongs = Array.isArray(songsData) ? songsData : songsData?.songs || songsData?.data || [];
-        const parsedGenres = Array.isArray(genresData?.data)
-          ? genresData.data
-          : Array.isArray(genresData)
-            ? genresData
-            : [];
+        const parsedGenres = Array.isArray(genresData?.data) ? genresData.data : Array.isArray(genresData) ? genresData: [];
 
         setSongs(parsedSongs);
         setGenres(parsedGenres);
